@@ -47,7 +47,8 @@ const followersArray = [];
 */
 function createComponents(data)
 {
-  // Create the components
+
+     // Create the components
   const comp = document.createElement('div');
   const compImg = document.createElement('img');
   const compData = document.createElement('div');
@@ -55,22 +56,22 @@ function createComponents(data)
   const compUN = document.createElement('p');
   const compLoc = document.createElement('p');
   const compProfile = document.createElement('p');
-  const compURL = document.createElement('a href');
+  const compURL = document.createElement('a');
   const compFollowers = document.createElement('p');
   const compFollowing = document.createElement('p');
   const compBio = document.createElement('p');
 
-   // Create the structure
-   comp.appendChild(compImg);
-   comp.appendChild(compData);
-   compData.appendChild(compName);
-   compData.appendChild(compUN);
-   compData.appendChild(compLoc);
-   compData.appendChild(compProfile);
-   compProfile.appendChild(compURL);
-   compData.appendChild(compFollowers);
-   compData.appendChild(compFollowing);
-   compData.appendChild(compBio);
+    // Create the structure
+    comp.appendChild(compImg);
+    comp.appendChild(compData);
+    compData.appendChild(compName);
+    compData.appendChild(compUN);
+    compData.appendChild(compLoc);
+    compData.appendChild(compProfile);
+    compProfile.appendChild(compURL);
+    compData.appendChild(compFollowers);
+    compData.appendChild(compFollowing);
+    compData.appendChild(compBio);
 
    // Add the classes
    comp.classList.add('card');
@@ -78,8 +79,16 @@ function createComponents(data)
    compName.classList.add('name');
    compUN.classList.add('username');
 
+   compImg.attributes.add('src', data.avatar_url);
+   compName.textContent = data.name;
+   compUN.textContent = data.login;
+   compLoc.textContent = 'Location: ' + data.location;
+   compURL.textContent = 'Profile: ' + compURL.attributes.add('href' + data.html_url);
+   compFollowers.textContent = 'Followers: ' + data.followers;
+   compFollowing.textContent = 'Following: ' + data.following;
+   compBio.textContent = 'Bio: ' + data.bio;
 
-
+   return comp;
 
 }
 
@@ -94,7 +103,7 @@ function createComponents(data)
 axios.get('https://api.github.com/users/nathan-loveless')
 .then(response => {
   console.log(response);
-
+  document.querySelector('.cards').appendChild(createComponents(response.data));
 })
 
 .catch(err => {
