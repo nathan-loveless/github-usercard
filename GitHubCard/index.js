@@ -45,6 +45,43 @@ const followersArray = [];
 </div>
 
 */
+function createComponents(data)
+{
+  // Create the components
+  const comp = document.createElement('div');
+  const compImg = document.createElement('img');
+  const compData = document.createElement('div');
+  const compName = document.createElement('h3');
+  const compUN = document.createElement('p');
+  const compLoc = document.createElement('p');
+  const compProfile = document.createElement('p');
+  const compURL = document.createElement('a href');
+  const compFollowers = document.createElement('p');
+  const compFollowing = document.createElement('p');
+  const compBio = document.createElement('p');
+
+   // Create the structure
+   comp.appendChild(compImg);
+   comp.appendChild(compData);
+   compData.appendChild(compName);
+   compData.appendChild(compUN);
+   compData.appendChild(compLoc);
+   compData.appendChild(compProfile);
+   compProfile.appendChild(compURL);
+   compData.appendChild(compFollowers);
+   compData.appendChild(compFollowing);
+   compData.appendChild(compBio);
+
+   // Add the classes
+   comp.classList.add('card');
+   compData.classList.add('card-info');
+   compName.classList.add('name');
+   compUN.classList.add('username');
+
+
+
+
+}
 
 /* List of LS Instructors Github username's: 
   tetondan
@@ -53,3 +90,15 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+axios.get('https://api.github.com/users/nathan-loveless')
+.then(response => {
+  console.log(response);
+
+})
+
+.catch(err => {
+  console.log(`Error: ${err}`);
+});
+
+
