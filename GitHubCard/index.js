@@ -24,7 +24,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['nathan-loveless', 'tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -54,15 +54,21 @@ const followersArray = [];
   bigknell
 */
 
-axios.get('https://api.github.com/users/nathan-loveless')
-.then(response => {
-  console.log(response);
-  document.querySelector('.cards').appendChild(createComponents(response.data));
+followersArray.forEach(element => {
+
+  axios.get(`https://api.github.com/users/${element}`)
+  .then(response => {
+    console.log(response);
+    document.querySelector('.cards').appendChild(createComponents(response.data));
+  })
+  
+  .catch(err => {
+    console.log(`Error: ${err}`);
+  });
+
 })
 
-.catch(err => {
-  console.log(`Error: ${err}`);
-});
+
 
 function createComponents(data)
 {
@@ -83,11 +89,11 @@ function createComponents(data)
     // Create the structure
     comp.appendChild(compImg);
     comp.appendChild(compData);
+    compProfile.appendChild(compURL);
     compData.appendChild(compName);
     compData.appendChild(compUN);
-    compData.appendChild(compLoc);
+    compData.appendChild(compLoc);        
     compData.appendChild(compProfile);
-    compProfile.appendChild(compURL);
     compData.appendChild(compFollowers);
     compData.appendChild(compFollowing);
     compData.appendChild(compBio);
@@ -98,15 +104,16 @@ function createComponents(data)
    compName.classList.add('name');
    compUN.classList.add('username');
 
-   //compImg.attributes.add('src', data.avatar_url);
+   compImg.setAttribute('src', data.avatar_url);
    compName.textContent = data.name;
    compUN.textContent = data.login;
    compLoc.textContent = 'Location: ' + data.location;
-  // compURL.textContent = 'Profile: ' + compURL.attributes.add('href' + data.html_url);
+   compProfile.textContent = 'Profile: ';
+   compURL.setAttribute('href', data.html_url);
+   compURL.textContent = data.html_url;
    compFollowers.textContent = 'Followers: ' + data.followers;
    compFollowing.textContent = 'Following: ' + data.following;
    compBio.textContent = 'Bio: ' + data.bio;
-
    return comp;
 }
 
