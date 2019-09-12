@@ -45,6 +45,25 @@ const followersArray = [];
 </div>
 
 */
+
+/* List of LS Instructors Github username's: 
+  tetondan
+  dustinmyers
+  justsml
+  luishrd
+  bigknell
+*/
+
+axios.get('https://api.github.com/users/nathan-loveless')
+.then(response => {
+  console.log(response);
+  document.querySelector('.cards').appendChild(createComponents(response.data));
+})
+
+.catch(err => {
+  console.log(`Error: ${err}`);
+});
+
 function createComponents(data)
 {
 
@@ -79,35 +98,16 @@ function createComponents(data)
    compName.classList.add('name');
    compUN.classList.add('username');
 
-   compImg.attributes.add('src', data.avatar_url);
+   //compImg.attributes.add('src', data.avatar_url);
    compName.textContent = data.name;
    compUN.textContent = data.login;
    compLoc.textContent = 'Location: ' + data.location;
-   compURL.textContent = 'Profile: ' + compURL.attributes.add('href' + data.html_url);
+  // compURL.textContent = 'Profile: ' + compURL.attributes.add('href' + data.html_url);
    compFollowers.textContent = 'Followers: ' + data.followers;
    compFollowing.textContent = 'Following: ' + data.following;
    compBio.textContent = 'Bio: ' + data.bio;
 
    return comp;
-
 }
-
-/* List of LS Instructors Github username's: 
-  tetondan
-  dustinmyers
-  justsml
-  luishrd
-  bigknell
-*/
-
-axios.get('https://api.github.com/users/nathan-loveless')
-.then(response => {
-  console.log(response);
-  document.querySelector('.cards').appendChild(createComponents(response.data));
-})
-
-.catch(err => {
-  console.log(`Error: ${err}`);
-});
 
 
