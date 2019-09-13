@@ -60,19 +60,18 @@ followersArray.forEach(element => {
   .then(response => {
     console.log(response);
     document.querySelector('.cards').appendChild(createComponents(response.data));
+    console.log(response.data);
   })
   
   .catch(err => {
     console.log(`Error: ${err}`);
   });
-
-})
+});
 
 
 
 function createComponents(data)
 {
-
      // Create the components
   const comp = document.createElement('div');
   const compImg = document.createElement('img');
@@ -80,6 +79,7 @@ function createComponents(data)
   const compName = document.createElement('h3');
   const compUN = document.createElement('p');
   const compLoc = document.createElement('p');
+  const compPair = document.createElement('div');
   const compProfile = document.createElement('p');
   const compURL = document.createElement('a');
   const compFollowers = document.createElement('p');
@@ -89,11 +89,14 @@ function createComponents(data)
     // Create the structure
     comp.appendChild(compImg);
     comp.appendChild(compData);
-    compProfile.appendChild(compURL);
+    compPair.appendChild(compProfile);
+    compPair.appendChild(compURL);
+    //compProfile.appendChild(compURL);
     compData.appendChild(compName);
     compData.appendChild(compUN);
-    compData.appendChild(compLoc);        
-    compData.appendChild(compProfile);
+    compData.appendChild(compLoc);   
+    compData.appendChild(compPair);     
+    //compData.appendChild(compProfile);
     compData.appendChild(compFollowers);
     compData.appendChild(compFollowing);
     compData.appendChild(compBio);
@@ -103,6 +106,10 @@ function createComponents(data)
    compData.classList.add('card-info');
    compName.classList.add('name');
    compUN.classList.add('username');
+
+   compPair.style.display = 'flex';
+   compPair.style.fontSize = '1.5em';
+   compProfile.style.paddingRight = '3px';
 
    compImg.setAttribute('src', data.avatar_url);
    compName.textContent = data.name;
